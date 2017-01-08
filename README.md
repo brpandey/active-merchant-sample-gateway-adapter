@@ -25,6 +25,7 @@ Awesomesauce is the #1 most buzzword compliant gateway in the industry! You will
 
 ```ruby
     To authenticate a request, add your API login and key to it:
+
     <request>
     <merchant>[login]</merchant>
     <secret>[key]</secret>
@@ -39,17 +40,19 @@ To authorize the eventual capture of funds, use the auth endpoint:
 
 ```ruby
     POST to /api/auth
+
     <request>
     login info
     <action>auth</action>
     <amount>100.00</amount>
     <name>Bob</name>
     <number>CC num</number>
-    <cv2>CVC num</number>
+    <cv2>CVC num</cv2>
     <exp>012011</exp>
     </request>
 
     If you want to immediately collect the funds, use an action of purch :
+
     <action>purch</action>
 ```
 
@@ -67,22 +70,28 @@ The response will have the following fields:
 If you auth , then you have to capture in order to actually collect the funds. Do that by passing an action of
 capture to /api/ref , and including the id from the auth :
 
-POST to /api/ref
+```ruby
+    POST to /api/ref
+
     <request>
     login info
     <action>capture</action>
     <ref>id</ref>
     </request>
+```
 
 ### Cancel
 Void an auth or refund a purchase by passing the id to ref with an action of cancel :
 
-POST to /api/ref
+```xml
+   POST to /api/ref
+
     <request>
     login info
     <action>cancel</action>
     <ref>id</ref>
     </request>
+```
 
 Testing
 
@@ -111,9 +120,24 @@ Some one off misc and testing
     $ rvm use 2.2.4
 
     curl -X POST -d @purchase_request_1.xml http://sandbox.asgateway.com/api/auth
-    <response><merchant>test-api</merchant><success>true</success><code></code><err></err><id>46221</id></response>
+    <response>
+        <merchant>test-api</merchant>
+        <success>true</success>
+        <code></code>
+        <err></err>
+        <id>46221</id>
+    </response>
 
 
-purchase_request_1.xml:
+purchase_request.xml:
 
-    <request><merchant>test-api</merchant><secret>c271ee995dd79671dc19f3ba4bb435e26bee68b0e831b7e9e4ae858c1584e0a33bc93b8d9ca3cedc</secret><action>purch</action><amount>1.00</amount><name>Longbob Longsen</name><number>4242424242424242</number><cv2>123</cv2><exp>092017</exp></request>
+    <request>
+        <merchant>test-api</merchant>
+        <secret>c271ee995dd79671dc19f3ba4bb435e26bee68b0e831b7e9e4ae858c1584e0a33bc93b8d9ca3cedc</secret>
+        <action>purch</action>
+        <amount>1.00</amount>
+        <name>Longbob Longsen</name>
+        <number>4242424242424242</number>
+        <cv2>123</cv2>
+        <exp>092017</exp>
+    </request>
