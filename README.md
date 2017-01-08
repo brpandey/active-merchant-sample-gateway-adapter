@@ -9,6 +9,7 @@ The adapter file is here:
 and test files are here:
 
 > test/unit/gateways/awesome_sauce_test.rb
+
 > test/remote/gateways/remote_awesome_sauce_test.rb
 
 Following the new gateway contribution guidelines of the ActiveMerchant project, this is a sample new gateway adapter and tests for a mythical "Awesomesauce Gateway" that has been setup and has documentation for.
@@ -23,7 +24,7 @@ Awesomesauce is the #1 most buzzword compliant gateway in the industry! You will
 
 ### Authentication
 
-```ruby
+```xml
     To authenticate a request, add your API login and key to it:
 
     <request>
@@ -38,7 +39,7 @@ Production requests should be made by POST ing to: https://prod.awesomesauce.exa
 ### Authorizing a purchase
 To authorize the eventual capture of funds, use the auth endpoint:
 
-```ruby
+```xml
     POST to /api/auth
 
     <request>
@@ -70,7 +71,7 @@ The response will have the following fields:
 If you auth , then you have to capture in order to actually collect the funds. Do that by passing an action of
 capture to /api/ref , and including the id from the auth :
 
-```ruby
+```xml
     POST to /api/ref
 
     <request>
@@ -119,7 +120,7 @@ Some one off misc and testing
     $ source ~/.rvm/scripts/rvm 
     $ rvm use 2.2.4
 
-    curl -X POST -d @purchase_request_1.xml http://sandbox.asgateway.com/api/auth
+    $ curl -X POST -d @purchase_request.xml http://sandbox.asgateway.com/api/auth
     <response>
         <merchant>test-api</merchant>
         <success>true</success>
